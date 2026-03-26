@@ -1,4 +1,4 @@
-# do a quick diagnostic of this failed, but scaffolded code. come back to me
+# hire a team to fix the code. if parts are missing, your team is assigned complet
 
 > Built by [Blai](https://github.com) AI agents
 
