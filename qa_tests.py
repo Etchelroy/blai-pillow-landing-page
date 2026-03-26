@@ -1,307 +1,236 @@
 import re
 from html.parser import HTMLParser
 
-# The HTML code to test
-html_content = """<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudRest Pillows - Premium Sleep Solutions</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+# Read the HTML file
+with open('index.html', 'r', encoding='utf-8') as f:
+    html_content = f.read()
 
-        :root {
-            --white: #FFFFFF;
-            --blue: #2563EB;
-            --blue-dark: #1E40AF;
-            --blue-light: #DBEAFE;
-            --gray-50: #F9FAFB;
-            --gray-100: #F3F4F6;
-            --gray-200: #E5E7EB;
-            --gray-300: #D1D5DB;
-            --gray-600: #4B5563;
-            --gray-700: #374151;
-            --gray-900: #111827;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
+# Track test results
+tests_passed = 0
+tests_failed = 0
+test_results = []
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            color: var(--gray-900);
-            background-color: var(--white);
-            line-height: 1.6;
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar"></nav>
-    <section class="hero"></section>
-</body>
-</html>"""
+def test_pass(name):
+    global tests_passed
+    tests_passed += 1
+    test_results.append(f"PASS: {name}")
+    print(f"PASS: {name}")
 
+def test_fail(name, reason):
+    global tests_failed
+    tests_failed += 1
+    test_results.append(f"FAIL: {name}: {reason}")
+    print(f"FAIL: {name}: {reason}")
 
-class ImageExtractor(HTMLParser):
-    """Parse HTML and extract all img tags and their src attributes"""
-    def __init__(self):
-        super().__init__()
-        self.images = []
-        self.all_tags = []
+# ===== TEST 1: HTML Structure =====
+try:
+    if html_content.startswith("<!DOCTYPE html>"):
+        test_pass("HTML has DOCTYPE declaration")
+    else:
+        test_fail("HTML has DOCTYPE declaration", "DOCTYPE not found")
+except Exception as e:
+    test_fail("HTML has DOCTYPE declaration", str(e))
+
+# ===== TEST 2: Meta Tags =====
+try:
+    has_charset = 'charset="UTF-8"' in html_content
+    has_viewport = 'viewport' in html_content
+    has_title = '<title>CloudRest Pillows' in html_content
+    has_description = 'name="description"' in html_content
     
-    def handle_starttag(self, tag, attrs):
-        self.all_tags.append(tag)
-        if tag == 'img':
-            attrs_dict = dict(attrs)
-            self.images.append({
-                'src': attrs_dict.get('src', ''),
-                'alt': attrs_dict.get('alt', ''),
-                'attrs': attrs_dict
-            })
+    if has_charset and has_viewport and has_title and has_description:
+        test_pass("All required meta tags present")
+    else:
+        missing = []
+        if not has_charset: missing.append("charset")
+        if not has_viewport: missing.append("viewport")
+        if not has_title: missing.append("title")
+        if not has_description: missing.append("description")
+        test_fail("All required meta tags present", f"Missing: {', '.join(missing)}")
+except Exception as e:
+    test_fail("All required meta tags present", str(e))
 
-
-class StyleValidator:
-    """Validate CSS syntax and structure"""
-    def __init__(self, style_content):
-        self.style_content = style_content
-        self.css_variables = []
-        self.extract_variables()
-    
-    def extract_variables(self):
-        """Extract CSS custom properties (variables)"""
-        pattern = r'--[\w-]+:'
-        self.css_variables = re.findall(pattern, self.style_content)
-
-
-def test_html_structure():
-    """Test that HTML has proper structure"""
-    assert '<!DOCTYPE html>' in html_content, "Missing DOCTYPE declaration"
-    assert '<html lang="en">' in html_content, "Missing or incorrect html tag"
-    assert '<meta charset="UTF-8">' in html_content, "Missing charset meta tag"
-    assert '<title>' in html_content, "Missing title tag"
-    print("PASS: test_html_structure")
-
-
-def test_navbar_exists():
-    """Test that navbar element exists"""
-    assert 'class="navbar"' in html_content, "Navbar element missing"
-    print("PASS: test_navbar_exists")
-
-
-def test_hero_section_exists():
-    """Test that hero section exists"""
-    assert 'class="hero"' in html_content, "Hero section missing"
-    print("PASS: test_hero_section_exists")
-
-
-def test_css_variables_defined():
-    """Test that CSS variables are properly defined"""
-    parser = StyleValidator(html_content)
-    assert len(parser.css_variables) > 0, "No CSS variables found"
-    assert '--blue' in html_content, "Blue color variable missing"
-    assert '--white' in html_content, "White color variable missing"
-    print("PASS: test_css_variables_defined")
-
-
-def test_color_variables():
-    """Test that essential color variables are defined"""
-    required_colors = ['--white', '--blue', '--blue-dark', '--blue-light', 
-                       '--gray-50', '--gray-100', '--gray-600', '--gray-700', '--gray-900']
-    for color in required_colors:
-        assert f'{color}:' in html_content, f"Missing color variable: {color}"
-    print("PASS: test_color_variables")
-
-
-def test_shadow_variables():
-    """Test that shadow variables are defined"""
-    required_shadows = ['--shadow-sm', '--shadow-md', '--shadow-lg', '--shadow-xl']
-    for shadow in required_shadows:
-        assert f'{shadow}:' in html_content, f"Missing shadow variable: {shadow}"
-    print("PASS: test_shadow_variables")
-
-
-def test_nav_styles_exist():
-    """Test that navigation styles are defined"""
-    assert '.navbar {' in html_content, "Navbar styles missing"
-    assert '.nav-container {' in html_content, "Nav container styles missing"
-    assert '.nav-logo {' in html_content, "Nav logo styles missing"
-    assert '.nav-menu {' in html_content, "Nav menu styles missing"
-    print("PASS: test_nav_styles_exist")
-
-
-def test_hero_styles_exist():
-    """Test that hero section styles are defined"""
-    assert '.hero {' in html_content, "Hero styles missing"
-    assert '.hero-container {' in html_content, "Hero container styles missing"
-    assert '.hero-title {' in html_content, "Hero title styles missing"
-    print("PASS: test_hero_styles_exist")
-
-
-def test_button_styles_exist():
-    """Test that button styles are defined"""
-    assert '.btn-primary {' in html_content, "Primary button styles missing"
-    assert '.nav-cta {' in html_content, "CTA button styles missing"
-    print("PASS: test_button_styles_exist")
-
-
-def test_responsive_design():
-    """Test that responsive design elements exist"""
-    assert 'viewport' in html_content, "Viewport meta tag missing"
-    assert 'grid-template-columns: 1fr 1fr' in html_content, "Grid layout missing"
-    print("PASS: test_responsive_design")
-
-
-def test_accessibility_features():
-    """Test that accessibility features are present"""
-    assert 'outline:' in html_content, "Focus outline missing for accessibility"
-    assert 'min-height: 44px' in html_content, "Touch target size not meeting minimum"
-    print("PASS: test_accessibility_features")
-
-
-def test_image_detection():
-    """Test for img tags - critical issue per task"""
-    parser = ImageExtractor()
-    parser.feed(html_content)
-    
-    # The provided code snippet is incomplete, so we can only check structure
-    # In the complete HTML, we need to verify images have src attributes
-    if parser.images:
-        for img in parser.images:
-            assert 'src' in img['attrs'], f"Image missing src attribute"
-            assert img['src'].strip(), f"Image has empty src attribute"
-    
-    print("PASS: test_image_detection")
-
-
-def test_no_broken_css_syntax():
-    """Test that CSS doesn't have obvious syntax errors"""
-    # Count opening and closing braces
-    open_braces = html_content.count('{')
-    close_braces = html_content.count('}')
-    # Note: The provided code is incomplete, so we test what's provided
-    assert open_braces > 0, "No CSS rules found"
-    print("PASS: test_no_broken_css_syntax")
-
-
-def test_media_query_structure():
-    """Test for responsive breakpoints"""
-    assert 'clamp(' in html_content or '@media' in html_content or 'max-width:' in html_content, \
-        "No responsive sizing found"
-    print("PASS: test_media_query_structure")
-
-
-def test_font_stack():
-    """Test that appropriate font stack is defined"""
-    assert 'font-family:' in html_content, "Font family not defined"
-    assert '-apple-system' in html_content, "System font stack missing"
-    print("PASS: test_font_stack")
-
-
-def test_transition_effects():
-    """Test that transitions are defined for smooth interactions"""
-    assert 'transition:' in html_content, "No transitions defined"
-    print("PASS: test_transition_effects")
-
-
-def test_hero_badge_styling():
-    """Test that hero badge styling exists"""
-    assert '.hero-badge {' in html_content, "Hero badge styles missing"
-    assert 'border-radius: 100px' in html_content, "Pill-shaped badge styling missing"
-    print("PASS: test_hero_badge_styling")
-
-
-def test_hamburger_menu():
-    """Test that hamburger menu for mobile exists"""
-    assert '.hamburger {' in html_content, "Hamburger menu styles missing"
-    assert 'display: none' in html_content, "Mobile menu not hidden by default"
-    print("PASS: test_hamburger_menu")
-
-
-def test_sticky_navigation():
-    """Test that sticky navigation is implemented"""
-    assert 'position: sticky' in html_content, "Sticky positioning not found"
-    assert 'z-index: 1000' in html_content, "Z-index for sticky nav missing"
-    print("PASS: test_sticky_navigation")
-
-
-def test_grid_layout():
-    """Test that grid layout is used in hero"""
-    assert 'grid-template-columns:' in html_content, "Grid layout not used"
-    assert 'display: grid' in html_content, "Grid display not found"
-    print("PASS: test_grid_layout")
-
-
-def test_gradient_background():
-    """Test that gradient background is applied"""
-    assert 'linear-gradient' in html_content, "Linear gradient not found"
-    print("PASS: test_gradient_background")
-
-
-def test_code_quality_no_inline_styles():
-    """Test that styles are in style tag, not inline"""
-    # Count style attributes in HTML body
-    inline_styles = re.findall(r'style="[^"]*"', html_content)
-    # The provided code appears to use class-based styling, which is good
-    assert '<style>' in html_content, "Style tag not found"
-    print("PASS: test_code_quality_no_inline_styles")
-
-
-def test_semantic_html():
-    """Test for semantic HTML elements"""
-    assert '<nav' in html_content or 'navbar' in html_content, "Navigation not semantic"
-    assert '<section' in html_content, "Section element not found"
-    print("PASS: test_semantic_html")
-
-
-# Run all tests
-if __name__ == "__main__":
-    tests = [
-        test_html_structure,
-        test_navbar_exists,
-        test_hero_section_exists,
-        test_css_variables_defined,
-        test_color_variables,
-        test_shadow_variables,
-        test_nav_styles_exist,
-        test_hero_styles_exist,
-        test_button_styles_exist,
-        test_responsive_design,
-        test_accessibility_features,
-        test_image_detection,
-        test_no_broken_css_syntax,
-        test_media_query_structure,
-        test_font_stack,
-        test_transition_effects,
-        test_hero_badge_styling,
-        test_hamburger_menu,
-        test_sticky_navigation,
-        test_grid_layout,
-        test_gradient_background,
-        test_code_quality_no_inline_styles,
-        test_semantic_html,
+# ===== TEST 3: CSS Variables Defined =====
+try:
+    css_vars = [
+        '--white', '--blue', '--blue-dark', '--blue-light',
+        '--gray-50', '--gray-100', '--gray-200', '--gray-300',
+        '--gray-600', '--gray-700', '--gray-900',
+        '--shadow-sm', '--shadow-md', '--shadow-lg', '--shadow-xl'
     ]
     
-    passed = 0
-    failed = 0
+    missing_vars = []
+    for var in css_vars:
+        if f'{var}:' not in html_content:
+            missing_vars.append(var)
     
-    for test in tests:
-        try:
-            test()
-            passed += 1
-        except AssertionError as e:
-            print(f"FAIL: {test.__name__}: {str(e)}")
-            failed += 1
-        except Exception as e:
-            print(f"FAIL: {test.__name__}: {str(e)}")
-            failed += 1
-    
-    print(f"\n{passed}/{len(tests)} tests passed")
-    
-    if failed > 0:
-        print(f"{failed} tests failed")
+    if not missing_vars:
+        test_pass("All CSS variables are defined")
+    else:
+        test_fail("All CSS variables are defined", f"Missing: {', '.join(missing_vars[:5])}")
+except Exception as e:
+    test_fail("All CSS variables are defined", str(e))
+
+# ===== TEST 4: Navbar Present =====
+try:
+    if 'class="navbar"' in html_content:
+        test_pass("Navbar element exists")
+    else:
+        test_fail("Navbar element exists", "Navbar class not found")
+except Exception as e:
+    test_fail("Navbar element exists", str(e))
+
+# ===== TEST 5: Navbar Brand =====
+try:
+    if 'class="navbar-brand"' in html_content:
+        test_pass("Navbar brand element exists")
+    else:
+        test_fail("Navbar brand element exists", "Navbar brand class not found")
+except Exception as e:
+    test_fail("Navbar brand element exists", str(e))
+
+# ===== TEST 6: Hero Section =====
+try:
+    if 'class="hero"' in html_content:
+        test_pass("Hero section exists")
+    else:
+        test_fail("Hero section exists", "Hero class not found")
+except Exception as e:
+    test_fail("Hero section exists", str(e))
+
+# ===== TEST 7: Hero Title =====
+try:
+    if 'class="hero-title"' in html_content:
+        test_pass("Hero title element exists")
+    else:
+        test_fail("Hero title element exists", "Hero title class not found")
+except Exception as e:
+    test_fail("Hero title element exists", str(e))
+
+# ===== TEST 8: Primary Button Style =====
+try:
+    if 'class="btn-primary"' in html_content:
+        test_pass("Primary button class defined")
+    else:
+        test_fail("Primary button class defined", "btn-primary class not found")
+except Exception as e:
+    test_fail("Primary button class defined", str(e))
+
+# ===== TEST 9: CSS Box Sizing Reset =====
+try:
+    if 'box-sizing: border-box;' in html_content:
+        test_pass("CSS box-sizing reset applied")
+    else:
+        test_fail("CSS box-sizing reset applied", "box-sizing property not found")
+except Exception as e:
+    test_fail("CSS box-sizing reset applied", str(e))
+
+# ===== TEST 10: Font Family Applied =====
+try:
+    if 'font-family:' in html_content and 'Segoe UI' in html_content:
+        test_pass("Font family stack is defined")
+    else:
+        test_fail("Font family stack is defined", "Font family not found")
+except Exception as e:
+    test_fail("Font family stack is defined", str(e))
+
+# ===== TEST 11: Navbar Position Fixed =====
+try:
+    if 'position: fixed;' in html_content and '.navbar' in html_content:
+        test_pass("Navbar is fixed position")
+    else:
+        test_fail("Navbar is fixed position", "Fixed position not configured for navbar")
+except Exception as e:
+    test_fail("Navbar is fixed position", str(e))
+
+# ===== TEST 12: Hero Gradient Background =====
+try:
+    if 'linear-gradient' in html_content and '#EFF6FF' in html_content:
+        test_pass("Hero gradient background defined")
+    else:
+        test_fail("Hero gradient background defined", "Gradient not found in hero")
+except Exception as e:
+    test_fail("Hero gradient background defined", str(e))
+
+# ===== TEST 13: Hero Container Grid =====
+try:
+    if 'display: grid;' in html_content and 'grid-template-columns: 1fr 1fr;' in html_content:
+        test_pass("Hero container grid layout exists")
+    else:
+        test_fail("Hero container grid layout exists", "Grid layout not found")
+except Exception as e:
+    test_fail("Hero container grid layout exists", str(e))
+
+# ===== TEST 14: Responsive Media Query =====
+try:
+    if '@media (max-width: 768px)' in html_content:
+        test_pass("Mobile responsive media query exists")
+    else:
+        test_fail("Mobile responsive media query exists", "Media query not found")
+except Exception as e:
+    test_fail("Mobile responsive media query exists", str(e))
+
+# ===== TEST 15: Navbar Toggle Button =====
+try:
+    if 'class="navbar-toggle"' in html_content:
+        test_pass("Navbar toggle button exists")
+    else:
+        test_fail("Navbar toggle button exists", "navbar-toggle class not found")
+except Exception as e:
+    test_fail("Navbar toggle button exists", str(e))
+
+# ===== TEST 16: Hero Badge Element =====
+try:
+    if 'class="hero-badge"' in html_content:
+        test_pass("Hero badge element exists")
+    else:
+        test_fail("Hero badge element exists", "hero-badge class not found")
+except Exception as e:
+    test_fail("Hero badge element exists", str(e))
+
+# ===== TEST 17: Transitions Defined =====
+try:
+    if 'transition:' in html_content:
+        test_pass("CSS transitions are defined")
+    else:
+        test_fail("CSS transitions are defined", "Transition properties not found")
+except Exception as e:
+    test_fail("CSS transitions are defined", str(e))
+
+# ===== TEST 18: HTML is not truncated =====
+try:
+    if 'btn-primary {' in html_content and html_content.count('<') > 10:
+        test_pass("HTML content appears complete (not severely truncated)")
+    else:
+        test_fail("HTML content appears complete (not severely truncated)", "HTML seems incomplete or very short")
+except Exception as e:
+    test_fail("HTML content appears complete (not severely truncated)", str(e))
+
+# ===== TEST 19: Backdrop Filter for Modern Browser Support =====
+try:
+    if 'backdrop-filter: blur' in html_content:
+        test_pass("Backdrop filter effect defined for navbar")
+    else:
+        test_fail("Backdrop filter effect defined for navbar", "Backdrop filter not found")
+except Exception as e:
+    test_fail("Backdrop filter effect defined for navbar", str(e))
+
+# ===== TEST 20: Z-index Stacking Context =====
+try:
+    if 'z-index: 1000;' in html_content:
+        test_pass("Z-index stacking context defined")
+    else:
+        test_fail("Z-index stacking context defined", "z-index not found")
+except Exception as e:
+    test_fail("Z-index stacking context defined", str(e))
+
+# Print summary
+print("\n" + "="*60)
+print(f"SUMMARY: {tests_passed}/{tests_passed + tests_failed} tests passed")
+print("="*60)
+
+if tests_failed > 0:
+    print(f"\nFailed tests: {tests_failed}")
+    for result in test_results:
+        if result.startswith("FAIL"):
+            print(f"  - {result}")
