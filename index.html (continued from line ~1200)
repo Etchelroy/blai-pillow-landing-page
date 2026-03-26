@@ -282,3 +282,239 @@
 
             // Keyboard support
             button.addEventListener('keydown',
+```html
+ (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    button.click();
+                }
+            });
+        });
+
+        // ==================== SMOOTH SCROLL ==================== 
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    const offsetTop = target.offsetTop - 64; // Account for sticky navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ==================== INTERSECTION OBSERVER FOR ANIMATIONS ==================== 
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card, .benefit-card, .testimonial-card, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ==================== KEYBOARD NAVIGATION SUPPORT ==================== 
+        document.addEventListener('keydown', (e) => {
+            // Close mobile menu on Escape
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.focus();
+            }
+        });
+
+        // ==================== PERFORMANCE: PRELOAD CRITICAL IMAGES ==================== 
+        if ('loading' in HTMLImageElement.prototype) {
+            // Native lazy loading support
+            document.querySelectorAll('img').forEach(img => {
+                if (!img.closest('.hero-image')) {
+                    img.setAttribute('loading', 'lazy');
+                }
+            });
+        }
+
+        // ==================== ANALYTICS & ERROR TRACKING ==================== 
+        // Example: Send newsletter signup to analytics
+        newsletterForm.addEventListener('submit', () => {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'newsletter_signup');
+            }
+        });
+
+        // Track product interactions
+        productButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const productName = btn.closest('.product-info').querySelector('.product-title').textContent;
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'add_to_cart', {
+                        value: btn.closest('.product-info').querySelector('.product-price').textContent,
+                        items: [{ name: productName }]
+                    });
+                }
+            });
+        });
+
+        // ==================== ACCESSIBILITY: FOCUS MANAGEMENT ==================== 
+        // Ensure focus visible on all interactive elements
+        const interactiveElements = document.querySelectorAll('button, a, input');
+        interactiveElements.forEach(el => {
+            el.addEventListener('focus', () => {
+                el.style.outline = '2px solid var(--blue)';
+                el.style.outlineOffset = '2px';
+            });
+            el.addEventListener('blur', () => {
+                el.style.outline = 'none';
+            });
+        });
+
+        // ==================== REDUCED MOTION SUPPORT ==================== 
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            document.documentElement.style.scrollBehavior = 'auto';
+            document.querySelectorAll('*').forEach(el => {
+                el.style.animation = 'none';
+                el.style.transition = 'none';
+            });
+        }
+
+        // ==================== DARK MODE SUPPORT ==================== 
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDarkMode) {
+            document.documentElement.style.setProperty('--white', '#1F2937');
+            document.documentElement.style.setProperty('--gray-900', '#F9FAFB');
+            document.documentElement.style.setProperty('--gray-200', '#4B5563');
+            document.documentElement.style.setProperty('--gray-100', '#374151');
+        }
+
+        // ==================== FORM VALIDATION HELPER ==================== 
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.setAttribute('aria-invalid', 'true');
+                    isValid = false;
+                } else {
+                    input.removeAttribute('aria-invalid');
+                }
+
+                if (input.type === 'email' && !isValidEmail(input.value)) {
+                    input.setAttribute('aria-invalid', 'true');
+                    isValid = false;
+                }
+            });
+
+            return isValid;
+        }
+
+        // ==================== CART PERSISTENCE ==================== 
+        function initializeCart() {
+            const cartData = localStorage.getItem('cloudrest-cart');
+            return cartData ? JSON.parse(cartData) : [];
+        }
+
+        function addToCart(productName, productPrice, quantity = 1) {
+            let cart = initializeCart();
+            const existingItem = cart.find(item => item.name === productName);
+
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({ name: productName, price: productPrice, quantity });
+            }
+
+            localStorage.setItem('cloudrest-cart', JSON.stringify(cart));
+            return cart;
+        }
+
+        function removeFromCart(productName) {
+            let cart = initializeCart();
+            cart = cart.filter(item => item.name !== productName);
+            localStorage.setItem('cloudrest-cart', JSON.stringify(cart));
+            return cart;
+        }
+
+        function getCartTotal() {
+            const cart = initializeCart();
+            return cart.reduce((total, item) => {
+                const price = parseFloat(item.price.replace('$', ''));
+                return total + (price * item.quantity);
+            }, 0).toFixed(2);
+        }
+
+        // Update product buttons to use cart functions
+        productButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const productCard = button.closest('.product-card');
+                const productName = productCard.querySelector('.product-title').textContent;
+                const productPrice = productCard.querySelector('.product-price').textContent;
+                
+                addToCart(productName, productPrice, 1);
+            });
+        });
+
+        // ==================== NETWORK STATUS INDICATOR ==================== 
+        window.addEventListener('online', () => {
+            console.log('Connection restored');
+            // Retry failed requests, sync data, etc.
+        });
+
+        window.addEventListener('offline', () => {
+            console.warn('Connection lost - using cached data');
+            // Show offline indicator, disable certain features
+        });
+
+        // ==================== PAGE VISIBILITY API ==================== 
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Pause animations, stop auto-playing content
+                console.log('Page hidden');
+            } else {
+                // Resume animations, refresh data
+                console.log('Page visible');
+            }
+        });
+
+        // ==================== INITIALIZATION ==================== 
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set ARIA labels for all interactive elements
+            document.querySelectorAll('button:not([aria-label])').forEach(btn => {
+                if (!btn.textContent.trim()) {
+                    btn.setAttribute('aria-label', 'Button');
+                }
+            });
+
+            // Initialize cart from localStorage
+            const savedCart = initializeCart();
+            console.log('Cart loaded:', savedCart);
+
+            // Log page performance
+            if (window.performance && window.performance.timing) {
+                const perfTiming = window.performance.timing;
+                const pageLoadTime = perfTiming.loadEventEnd - perfTiming.navigationStart;
+                console.log('Page load time:', pageLoadTime + 'ms');
+            }
+        });
+
+        // ==================== SERVICE WORKER REGISTRATION (Optional PWA Support) ==================== 
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(err => {
+                console.log('Service Worker registration failed:', err);
+            });
+        }
+    </script>
+</body>
+</html>
