@@ -1729,3 +1729,60 @@
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 const
+```html
+ originalText = button.textContent;
+                button.textContent = 'Added to Cart! â';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }, 2000);
+            });
+        });
+
+        // ==================== SMOOTH SCROLL ==================== 
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ==================== INTERSECTION OBSERVER FOR ANIMATIONS ==================== 
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card, .benefit-card, .testimonial-card, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ==================== KEYBOARD NAVIGATION SUPPORT ==================== 
+        // Trap focus in mobile menu when open
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.focus();
+            }
+        });
+    </script>
+</body>
+</html>
