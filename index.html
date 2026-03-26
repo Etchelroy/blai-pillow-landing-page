@@ -1072,3 +1072,256 @@ RUN: open index.html
             font-size: 0.85rem; font-weight: 500; color: var(--gray-600);
         }
         .trust-item svg { width: 18px; height: 18px; color: var(--green); flex-shrink
+DEPS: none
+RUN: open index.html
+
+```html
+# filename: index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CloudRest Pillows — Premium sleep technology for the perfect night's rest. Memory foam, bamboo cooling, orthopedic, and down alternative pillows.">
+    <meta name="keywords" content="pillows, memory foam pillow, bamboo pillow, orthopedic pillow, sleep technology, CloudRest, premium sleep">
+    <meta property="og:title" content="CloudRest Pillows — Sleep Better Tonight">
+    <meta property="og:description" content="Premium pillows engineered for perfect sleep. 100-night trial. Free shipping.">
+    <meta property="og:type" content="website">
+    <title>CloudRest Pillows — Sleep Better Tonight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== CSS RESET & VARIABLES ==================== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --white: #ffffff;
+            --blue: #2563eb;
+            --blue-dark: #1d4ed8;
+            --blue-light: #eff6ff;
+            --blue-mid: #3b82f6;
+            --accent: #0ea5e9;
+            --gold: #f59e0b;
+            --green: #10b981;
+            --green-light: #ecfdf5;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.10), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.10), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 32px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: var(--font-sans);
+            color: var(--gray-900);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button { font-family: var(--font-sans); }
+        h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(1.875rem, 3.5vw, 2.75rem); }
+        h3 { font-size: clamp(1.125rem, 2vw, 1.375rem); }
+
+        /* ==================== UTILITY ==================== */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .text-center { text-align: center; }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--blue-light);
+            color: var(--blue);
+            font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 6px 14px; border-radius: 999px; margin-bottom: 16px;
+        }
+        .section-title { color: var(--gray-900); margin-bottom: 16px; }
+        .section-subtitle {
+            color: var(--gray-600); font-size: 1.125rem;
+            max-width: 600px; margin: 0 auto 56px; line-height: 1.7;
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--blue); color: var(--white);
+            font-size: 1rem; font-weight: 600;
+            padding: 14px 32px; border-radius: var(--radius-md);
+            border: none; cursor: pointer;
+            transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+            box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+            white-space: nowrap;
+        }
+        .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,99,235,0.45); }
+        .btn-primary:active { transform: translateY(0); }
+
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: transparent; color: var(--blue);
+            font-size: 1rem; font-weight: 600;
+            padding: 14px 32px; border-radius: var(--radius-md);
+            border: 2px solid var(--blue); cursor: pointer;
+            transition: all var(--transition); white-space: nowrap;
+        }
+        .btn-secondary:hover { background: var(--blue-light); transform: translateY(-2px); }
+
+        .btn-ghost {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.15); color: var(--white);
+            font-size: 1rem; font-weight: 600;
+            padding: 14px 32px; border-radius: var(--radius-md);
+            border: 2px solid rgba(255,255,255,0.4); cursor: pointer;
+            transition: all var(--transition); backdrop-filter: blur(8px);
+        }
+        .btn-ghost:hover { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.75); }
+
+        /* ==================== NAVBAR ==================== */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--gray-200);
+            transition: box-shadow var(--transition);
+        }
+        .navbar.scrolled { box-shadow: var(--shadow-md); }
+        .navbar-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 72px; max-width: 1200px; margin: 0 auto; padding: 0 24px;
+        }
+        .navbar-brand {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 1.375rem; font-weight: 800;
+            color: var(--gray-900); letter-spacing: -0.03em;
+        }
+        .brand-icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--blue), var(--accent));
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .brand-icon svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 2; }
+        .brand-highlight { color: var(--blue); }
+        .navbar-nav { display: flex; align-items: center; gap: 4px; }
+        .navbar-nav a {
+            font-size: 0.9rem; font-weight: 500; color: var(--gray-700);
+            padding: 8px 14px; border-radius: var(--radius-sm);
+            transition: color var(--transition), background var(--transition);
+        }
+        .navbar-nav a:hover { color: var(--blue); background: var(--blue-light); }
+        .navbar-actions { display: flex; align-items: center; gap: 12px; }
+        .cart-btn {
+            position: relative; background: none; border: none; cursor: pointer;
+            padding: 8px; border-radius: var(--radius-sm); color: var(--gray-700);
+            transition: color var(--transition), background var(--transition);
+        }
+        .cart-btn:hover { color: var(--blue); background: var(--blue-light); }
+        .cart-btn svg { width: 22px; height: 22px; display: block; stroke: currentColor; fill: none; stroke-width: 2; }
+        .cart-badge {
+            position: absolute; top: 2px; right: 2px;
+            width: 16px; height: 16px;
+            background: var(--blue); color: var(--white);
+            font-size: 0.625rem; font-weight: 700; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hamburger {
+            display: none; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer;
+            padding: 8px; border-radius: var(--radius-sm);
+        }
+        .hamburger span {
+            display: block; width: 22px; height: 2px;
+            background: var(--gray-700); border-radius: 2px; transition: all var(--transition);
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu {
+            display: none; position: fixed; top: 72px; left: 0; right: 0;
+            background: var(--white); border-bottom: 1px solid var(--gray-200);
+            padding: 16px 24px 24px; z-index: 999; box-shadow: var(--shadow-lg);
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block; font-size: 1rem; font-weight: 500;
+            color: var(--gray-700); padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100); transition: color var(--transition);
+        }
+        .mobile-menu a:hover { color: var(--blue); }
+        .mobile-menu .btn-primary { width: 100%; justify-content: center; margin-top: 16px; }
+
+        /* ==================== HERO ==================== */
+        .hero {
+            position: relative; min-height: 100vh;
+            display: flex; align-items: center; padding: 120px 0 80px;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 40%, #f5f0ff 100%);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -20%; right: -10%;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none;
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: -10%; left: -5%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(14,165,233,0.06) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none;
+        }
+        .hero-inner {
+            display: grid; grid-template-columns: 1fr 1fr;
+            align-items: center; gap: 64px;
+            max-width: 1200px; margin: 0 auto; padding: 0 24px;
+            position: relative; z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--white); border: 1px solid var(--gray-200);
+            padding: 8px 16px; border-radius: 999px;
+            font-size: 0.8rem; font-weight: 600; color: var(--gray-700);
+            margin-bottom: 24px; box-shadow: var(--shadow-sm);
+        }
+        .hero-badge-dot {
+            width: 8px; height: 8px; background: var(--green);
+            border-radius: 50%; animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.4); }
+        }
+        .hero-title { margin-bottom: 24px; color: var(--gray-900); }
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--blue), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem; color: var(--gray-600);
+            margin-bottom: 40px; line-height: 1.7; max-width: 480px;
+        }
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+        .hero-trust { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .trust-item {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.85rem; font-weight: 500; color: var(--gray-600);
+        }
+        .trust-item svg { width: 18px; height: 18px; color: var(--green); flex-shrink: 0; stroke: var(--green); fill: none; stroke-width:
