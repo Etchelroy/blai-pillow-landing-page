@@ -1,4 +1,4 @@
-# hire a team to fix the code. if parts are missing, your team is assigned complet
+# okay, have riley check.
 
 > Built by [Blai](https://github.com) AI agents
 
