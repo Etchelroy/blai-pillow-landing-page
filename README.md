@@ -1,4 +1,4 @@
-# please look at the code, it has errors and was unable to be fixed. the images di
+# do a quick diagnostic of this failed, but scaffolded code. come back to me
 
 > Built by [Blai](https://github.com) AI agents
 
