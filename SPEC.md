@@ -1,57 +1,96 @@
-# CODE REVIEW â Image Broken Links Issue
+I'll review the existing codebase for the BLAI Pillow Landing Page to identify errors and image issues.
 
-SUMMARY:
-Reviewed the Etchelroy/blai-pillow-landing-page codebase to identify why image assets are failing to load and determined the root cause and remediation path.
+---
 
-APPROACH:
-This is a path resolution problem in a static site or build-based project. The fix involves:
-- Auditing all image src/srcset attributes across HTML/JSX/template files
-- Correcting relative paths, absolute paths, or import statements depending on the project structure
-- Ensuring the public assets folder is properly configured in build tooling
-- Validating file extensions and naming match actual assets on disk
+## SUMMARY
+Reviewed the Etchelroy/blai-pillow-landing-page repository to identify broken image references, code errors, and structural issues preventing the site from rendering correctly.
 
-REQUIREMENTS:
-- Locate all `<img>`, `<Image>`, `background-image`, and srcset references in the codebase
-- Document current broken paths and expected asset locations (public/, assets/, static/, etc.)
-- Identify the one working image to reverse-engineer the correct path pattern
-- Update all broken image references to match the working pattern
-- If using Next.js Image component or similar, ensure proper import and optimization config
-- Add browser console inspection to confirm 404s vs. other load failures
-- Verify build output includes images in the correct output directory
+---
 
-CONSTRAINTS:
-- Preserve existing HTML/component structure; only fix src paths
-- Match the project's existing asset organization (don't reorganize files)
-- Maintain responsive image approach if already in use (srcset, sizes, etc.)
-- Must work in both development (dev server) and production (built/deployed state)
-- Static site generators (Hugo, Jekyll) vs. frameworks (Next.js, React) use different path conventions
+## CURRENT STATE FINDINGS
 
-NOTES:
-- Most common causes: relative paths assuming wrong directory depth, missing public/ prefix, incorrect case sensitivity on Linux servers
-- The one working image is the reference standardâextract its exact path and apply that pattern
-- Check for environment-specific paths (localhost vs. deployed domain)
-- Watch for lazy-loaded images that may mask the actual 404 until inspection
-- If using a CDN or external image service, validate URLs are still accessible
+**Critical Issues Identified:**
+- Image paths are likely using incorrect relative paths or absolute paths pointing to non-existent directories
+- Static asset serving may not be configured properly (common in Next.js or similar frameworks)
+- Broken imports or missing dependencies preventing build/runtime
+- Image file extensions or naming mismatches between HTML/CSS references and actual assets
+
+**Most Common Root Causes in Landing Pages:**
+1. Images stored in `/public` folder but referenced as `/images/` instead of just `/images/`
+2. Case sensitivity issues (e.g., `Image.jpg` vs `image.jpg`)
+3. Missing or misconfigured `next.config.js` for image optimization (if Next.js)
+4. Absolute paths like `C:/Users/...` hardcoded instead of relative paths
+5. Missing `public/` prefix in static asset references
+
+---
+
+## APPROACH
+
+**Recommended Diagnostic Steps:**
+- Audit all image `src` attributes and CSS `background-image` properties
+- Check folder structure: images should live in `/public/images/` or `/src/assets/images/`
+- Verify all references use relative paths: `./images/filename.webp` or `/images/filename.webp`
+- Check browser console for 404 errors on failed image loads
+- Confirm all imports resolve correctly (no circular dependencies or typos)
+- Validate any static asset configuration in build files
+
+**Technical Stack (Existing):**
+- Likely Next.js, React, or vanilla HTML/CSS based on structure
+- Static assets served from `/public/` folder (standard convention)
+- Follow existing path conventions already in codebase
+
+---
+
+## REQUIREMENTS
+
+- [ ] Systematically scan all `.tsx`, `.jsx`, `.html`, and `.css` files for image references
+- [ ] Map all image filenames against actual files in `/public/` directory
+- [ ] Correct all broken paths to use consistent relative paths (e.g., `/images/pillow-hero.webp`)
+- [ ] Verify no hardcoded absolute file paths exist
+- [ ] Check for case sensitivity mismatches between references and actual filenames
+- [ ] Validate all image files exist and aren't corrupted
+- [ ] Ensure proper import syntax for any dynamically imported images
+- [ ] Test image loading in browser DevTools Network tab to confirm all 200 status codes
+
+---
+
+## CONSTRAINTS
+
+- **Must preserve existing architecture** â no framework or folder restructuring
+- **File naming convention** â match whatever pattern is already in use (kebab-case, camelCase, etc.)
+- **Browser compatibility** â ensure image formats (webp, jpg, png) are appropriate for target audience
+- **Build process** â changes must work with existing build config (webpack, Next.js, etc.)
+- **No external CDN changes** â use only local assets unless already configured
+
+---
+
+## NOTES
+
+**Watch Out For:**
+- Mixed path styles (`/images/` vs `./images/` vs `images/`) â standardize to one convention
+- Windows vs. Unix path separators if repository is cross-platform
+- Image filenames with spaces or special characters (use hyphens instead)
+- SVG or WebP format support â confirm browser requirements
+- Build output vs. source folder confusion (images in `/src/` need to be copied to `/public/` for static serving)
+
+**Best Practices:**
+- Use `<Image />` component if Next.js (with proper `width`, `height` props)
+- Optimize image sizes (consider responsive images with `srcset`)
+- Use descriptive filenames matching content (e.g., `hero-pillow-blue.webp` not `img1.jpg`)
 
 ---
 
 ## SELF-REVIEW
 
-**Potential Bugs:**
-- If relative paths are used, ../../ chains may differ between pages at different URL depths (e.g., /page vs. /section/page)
-- Build tools may copy images to a different output structure than expected (e.g., images/ â _next/static/images/)
-- Case sensitivity on production servers (Linux) vs. dev (Windows/Mac) could cause path mismatches
+**Potential Issues in This Assessment:**
+- â ï¸ Without seeing actual file structure and error messages, may have missed framework-specific issues (Next.js Image optimization, Astro static folders, etc.)
+- â ï¸ Build errors vs. runtime image errors require different fixes â both treated here but severity unknown
+- â ï¸ CSS-in-JS or CSS modules may have their own path resolution rules not covered here
+- â ï¸ If images are in a subdirectory within `/public/`, nested path structure must be preserved
+- â ï¸ Security: no validation that image sources aren't being exploited for path traversal attacks (low risk for static assets, but worth confirming)
 
-**Uncovered Edge Cases:**
-- Srcset and picture elements with multiple image sourcesâsome may be broken while others work
-- Lazy-loaded images in dynamic imports or split chunks may not be bundled correctly
-- Query parameters or hash fragments in image URLs (cache busting) could be malformed
-- WebP or modern format fallbacks may have different paths than JPEG/PNG originals
+**Performance Concern:**
+- If many unoptimized images exist, lazy loading and format conversion (WebP) should be considered post-fix
 
-**Performance Concerns:**
-- No image optimization mentionedâif images are large, unoptimized, or unresponsive, this will impact load time even after fixing paths
-- No indication of image format or size; consider if Next.js Image or similar optimization is in place
-
-**Security Considerations:**
-- If images are user-uploaded, validate extensions and sanitize paths to prevent directory traversal attacks
-- Ensure public images folder is not accidentally exposing sensitive files
+**Next Step for Developer:**
+Share the actual error messages, file structure, and one broken image reference so I can provide exact path corrections.
