@@ -81,13 +81,10 @@
             font-weight: 500;
             font-size: 14px;
             transition: color 0.2s ease;
-            position: relative;
             padding: 8px 0;
         }
 
-        .nav-menu a:hover {
-            color: var(--blue);
-        }
+        .nav-menu a:hover { color: var(--blue); }
 
         .nav-menu a:focus {
             outline: 2px solid var(--blue);
@@ -139,171 +136,306 @@
             border-radius: 1px;
         }
 
-        /* ==================== HERO SECTION ==================== */
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* ==================== HERO ==================== */
         .hero {
-            height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            min-height: calc(100vh - 64px);
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #EDE9FE 100%);
+            display: flex;
             align-items: center;
+            padding: 80px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 24px;
-            gap: 48px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
         }
 
-        .hero-content h1 {
-            font-size: 56px;
-            font-weight: 700;
-            line-height: 1.2;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--blue-light);
+            color: var(--blue);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .hero-badge::before {
+            content: 'â';
+            font-size: 12px;
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 5vw, 64px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
             color: var(--gray-900);
             margin-bottom: 24px;
-            letter-spacing: -1px;
         }
 
-        .hero-content p {
+        .hero-title span {
+            color: var(--blue);
+        }
+
+        .hero-subtitle {
             font-size: 18px;
             color: var(--gray-600);
-            margin-bottom: 32px;
+            margin-bottom: 40px;
+            max-width: 480px;
             line-height: 1.7;
         }
 
-        .hero-buttons {
+        .hero-actions {
             display: flex;
             gap: 16px;
-            margin-bottom: 48px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .btn-primary {
             background-color: var(--blue);
             color: var(--white);
-            padding: 14px 32px;
-            border-radius: 8px;
+            padding: 16px 32px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 16px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-            min-height: 48px;
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
+            gap: 8px;
+            min-height: 52px;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary:hover {
             background-color: var(--blue-dark);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-primary:focus {
-            outline: 2px solid var(--blue);
-            outline-offset: 2px;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35);
         }
 
         .btn-secondary {
-            background-color: var(--gray-100);
-            color: var(--gray-900);
-            padding: 14px 32px;
-            border-radius: 8px;
+            background-color: transparent;
+            color: var(--gray-700);
+            padding: 16px 32px;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             font-size: 16px;
-            border: 2px solid var(--gray-300);
-            cursor: pointer;
             transition: all 0.2s ease;
-            min-height: 48px;
             display: inline-flex;
             align-items: center;
+            gap: 8px;
+            min-height: 52px;
+            border: 2px solid var(--gray-200);
         }
 
         .btn-secondary:hover {
-            background-color: var(--white);
             border-color: var(--blue);
             color: var(--blue);
             transform: translateY(-2px);
         }
 
-        .btn-secondary:focus {
-            outline: 2px solid var(--blue);
-            outline-offset: 2px;
-        }
-
-        .hero-stats {
+        .hero-trust {
             display: flex;
-            gap: 48px;
-            padding-top: 32px;
-            border-top: 1px solid var(--gray-200);
+            align-items: center;
+            gap: 16px;
+            margin-top: 40px;
         }
 
-        .stat {
-            flex: 1;
+        .hero-avatars {
+            display: flex;
         }
 
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--blue);
+        .hero-avatars img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            margin-left: -8px;
+            object-fit: cover;
         }
 
-        .stat-label {
-            font-size: 14px;
+        .hero-avatars img:first-child { margin-left: 0; }
+
+        .hero-trust-text {
+            font-size: 13px;
             color: var(--gray-600);
-            margin-top: 8px;
+            font-weight: 500;
         }
 
-        .hero-image {
+        .hero-trust-text strong {
+            color: var(--gray-900);
+        }
+
+        .hero-image-wrap {
             position: relative;
-            height: 500px;
-            background: linear-gradient(135deg, var(--blue-light) 0%, var(--gray-100) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -16px;
+            background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(139,92,246,0.1));
+            border-radius: 32px;
+            z-index: 0;
+        }
+
+        .hero-img {
+            width: 100%;
+            max-width: 560px;
+            border-radius: 24px;
+            object-fit: cover;
+            aspect-ratio: 4/3;
+            position: relative;
+            z-index: 1;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .hero-float-card {
+            position: absolute;
+            background: var(--white);
             border-radius: 16px;
-            overflow: hidden;
+            padding: 16px 20px;
+            box-shadow: var(--shadow-xl);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-float-card.top-left {
+            top: 24px;
+            left: -24px;
+        }
+
+        .hero-float-card.bottom-right {
+            bottom: 24px;
+            right: -24px;
+        }
+
+        .float-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
         }
 
-        .hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 16px;
+        .float-icon.blue { background-color: var(--blue-light); }
+        .float-icon.green { background-color: #D1FAE5; }
+
+        .float-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .float-sub {
+            font-size: 11px;
+            color: var(--gray-600);
+            margin-top: 2px;
         }
 
         /* ==================== TRUST BAR ==================== */
         .trust-bar {
             background-color: var(--gray-50);
-            padding: 48px 24px;
-            border-top: 1px solid var(--gray-200);
-            border-bottom: 1px solid var(--gray-200);
+            border-top: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--gray-100);
+            padding: 32px 24px;
         }
 
-        .trust-container {
+        .trust-bar-inner {
             max-width: 1400px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            align-items: center;
         }
 
-        .trust-item h3 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 8px;
-        }
-
-        .trust-item p {
-            font-size: 14px;
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: var(--gray-600);
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        /* ==================== PRODUCT GRID ==================== */
-        .products-section {
-            max-width: 1400px;
-            margin: 0 auto;
+        .trust-icon {
+            font-size: 20px;
+        }
+
+        /* ==================== SECTION SHARED ==================== */
+        section {
             padding: 96px 24px;
+        }
+
+        .section-label {
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--gray-900);
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .section-sub {
+            font-size: 17px;
+            color: var(--gray-600);
+            max-width: 560px;
+            line-height: 1.7;
         }
 
         .section-header {
@@ -311,1478 +443,70 @@
             margin-bottom: 64px;
         }
 
-        .section-header h2 {
-            font-size: 44px;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 16px;
-            letter-spacing: -0.5px;
-        }
-
-        .section-header p {
-            font-size: 18px;
-            color: var(--gray-600);
-            max-width: 600px;
+        .section-header .section-sub {
             margin: 0 auto;
         }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-        }
-
-        .product-card {
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .product-card:focus-within {
-            outline: 2px solid var(--blue);
-            outline-offset: 2px;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 280px;
-            background: linear-gradient(135deg, var(--blue-light) 0%, var(--gray-100) 100%);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-wishlist {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 44px;
-            height: 44px;
+        /* ==================== FEATURES ==================== */
+        .features {
             background-color: var(--white);
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-md);
         }
 
-        .product-wishlist:hover {
-            background-color: var(--blue);
-        }
-
-        .product-wishlist:hover svg {
-            stroke: var(--white);
-            fill: var(--white);
-        }
-
-        .product-wishlist:focus {
-            outline: 2px solid var(--blue);
-            outline-offset: 2px;
-        }
-
-        .product-wishlist svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--blue);
-            fill: none;
-            transition: all 0.2s ease;
-        }
-
-        .product-info {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--white);
-            border: 1px solid var(--gray-200);
-            border-top: none;
-        }
-
-        .product-category {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--blue);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .product-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .product-description {
-            font-size: 14px;
-            color: var(--gray-600);
-            margin-bottom: 16px;
-            flex-grow: 1;
-        }
-
-        .product-rating {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .stars {
-            display: flex;
-            gap: 4px;
-        }
-
-        .star {
-            width: 16px;
-            height: 16px;
-            fill: #FCD34D;
-        }
-
-        .rating-count {
-            font-size: 13px;
-            color: var(--gray-600);
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .product-price {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--blue);
-        }
-
-        .product-price-original {
-            font-size: 14px;
-            color: var(--gray-600);
-            text-decoration: line-through;
-            margin-left: 8px;
-        }
-
-        .product-btn {
-            background-color: var(--blue);
-            color: var(--white);
-            border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            min-height: 40px;
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-        }
-
-        .product-btn:hover {
-            background-color: var(--blue-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .product-btn:focus {
-            outline: 2px solid var(--blue);
-            outline-offset: 2px;
-        }
-
-        /* ==================== BENEFITS SECTION ==================== */
-        .benefits-section {
-            background-color: var(--gray-50);
-            padding: 96px 24px;
-            border-top: 1px solid var(--gray-200);
-        }
-
-        .benefits-container {
+        .features-container {
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .benefits-grid {
-            display:
-```html
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 48px;
+            gap: 32px;
         }
 
-        .benefit-card {
-            background-color: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--gray-200);
-            text-align: center;
+        .feature-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-100);
+            border-radius: 20px;
+            padding: 40px 32px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .benefit-card:hover {
-            box-shadow: var(--shadow-lg);
-            border-color: var(--blue);
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), #8B5CF6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
             transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--gray-200);
         }
 
-        .benefit-icon {
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon-wrap {
             width: 56px;
             height: 56px;
             background-color: var(--blue-light);
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            font-size: 26px;
+            margin-bottom: 24px;
         }
 
-        .benefit-icon svg {
-            width: 32px;
-            height: 32px;
-            stroke: var(--blue);
-            fill: none;
-        }
-
-        .benefit-card h3 {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 12px;
-        }
-
-        .benefit-card p {
-            font-size: 14px;
-            color: var(--gray-600);
-            line-height: 1.7;
-        }
-
-        /* ==================== TESTIMONIALS SECTION ==================== */
-        .testimonials-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 96px 24px;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .testimonial-card {
-            background-color: var(--white);
-            padding: 32px;
-            border-radius: 12px;
-            border: 1px solid var(--gray-200);
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-        }
-
-        .testimonial-card:hover {
-            box-shadow: var(--shadow-lg);
-            border-color: var(--blue);
-        }
-
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .testimonial-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
-            flex-shrink: 0;
-        }
-
-        .testimonial-author {
-            flex-grow: 1;
-        }
-
-        .testimonial-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 4px;
-        }
-
-        .testimonial-role {
-            font-size: 12px;
-            color: var(--gray-600);
-        }
-
-        .testimonial-rating {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 16px;
-        }
-
-        .testimonial-star {
-            width: 16px;
-            height: 16px;
-            fill: #FCD34D;
-        }
-
-        .testimonial-text {
-            font-size: 14px;
-            color: var(--gray-600);
-            line-height: 1.8;
-            font-style: italic;
-        }
-
-        /* ==================== FAQ SECTION ==================== */
-        .faq-section {
-            background-color: var(--gray-50);
-            padding: 96px 24px;
-            border-top: 1px solid var(--gray-200);
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background-color: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            margin-bottom: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-            border-color: var(--blue);
-            box-shadow: var(--shadow-md);
-        }
-
-        .faq-button {
-            width: 100%;
-            padding: 20px;
-            background-color: var(--white);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--gray-900);
-            transition: all 0.2s ease;
-        }
-
-        .faq-button:hover {
-            background-color: var(--gray-50);
-        }
-
-        .faq-button:focus {
-            outline: 2px solid var(--blue);
-            outline-offset: -2px;
-        }
-
-        .faq-button svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--blue);
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .faq-item.open .faq-button svg {
-            transform: rotate(180deg);
-        }
-
-        .faq-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .faq-item.open .faq-content {
-            max-height: 500px;
-        }
-
-        .faq-text {
-            padding: 0 20px 20px;
-            color: var(--gray-600);
-            font-size: 14px;
-            line-height: 1.8;
-        }
-
-        /* ==================== NEWSLETTER SECTION ==================== */
-        .newsletter-section {
-            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
-            padding: 80px 24px;
-            color: var(--white);
-        }
-
-        .newsletter-container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .newsletter-container h2 {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: -0.5px;
-        }
-
-        .newsletter-container p {
-            font-size: 16px;
-            margin-bottom: 32px;
-            opacity: 0.95;
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .newsletter-input {
-            flex: 1;
-            min-width: 200px;
-            padding: 14px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            min-height: 48px;
-        }
-
-        .newsletter-input::placeholder {
-            color: var(--gray-600);
-        }
-
-        .newsletter-input:focus {
-            outline: 2px solid var(--white);
-            outline-offset: 2px;
-        }
-
-        .newsletter-btn {
-            background-color: var(--white);
-            color: var(--blue);
-            border: none;
-            padding: 14px 32px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            min-height: 48px;
-            white-space: nowrap;
-        }
-
-        .newsletter-btn:hover {
-            background-color: var(--gray-100);
-            transform: translateY(-2px);
-        }
-
-        .newsletter-btn:focus {
-            outline: 2px solid var(--white);
-            outline-offset: 2px;
-        }
-
-        /* ==================== FOOTER ==================== */
-        .footer {
-            background-color: var(--gray-900);
-            color: var(--white);
-            padding: 60px 24px 20px;
-            border-top: 1px solid var(--gray-800);
-        }
-
-        .footer-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 16px;
-            color: var(--gray-200);
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-column a {
-            color: var(--gray-400);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s ease;
-        }
-
-        .footer-column a:hover {
-            color: var(--blue);
-        }
-
-        .footer-column a:focus {
-            outline: 2px solid var(--blue);
-            outline-offset: 4px;
-            border-radius: 2px;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #374151;
-            padding-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .footer-copy {
-            font-size: 14px;
-            color: var(--gray-400);
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 16px;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .social-link:hover {
-            background-color: var(--blue);
-            transform: translateY(-2px);
-        }
-
-        .social-link:focus {
-            outline: 2px solid var(--blue);
-            outline-offset: 2px;
-        }
-
-        /* ==================== RESPONSIVE BREAKPOINTS ==================== */
-        @media (max-width: 1024px) {
-            .hero {
-                grid-template-columns: 1fr;
-                padding: 48px 24px;
-                height: auto;
-                min-height: 80vh;
-            }
-
-            .hero-content h1 {
-                font-size: 40px;
-            }
-
-            .hero-image {
-                height: 350px;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .trust-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .testimonials-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            .nav-menu.active {
-                display: flex;
-                position: absolute;
-                flex-direction: column;
-                top: 64px;
-                left: 0;
-                right: 0;
-                background-color: var(--white);
-                padding: 20px 24px;
-                gap: 12px;
-                border-bottom: 1px solid var(--gray-200);
-                z-index: 999;
-            }
-
-            .hero {
-                grid-template-columns: 1fr;
-                padding: 32px 20px;
-            }
-
-            .hero-content h1 {
-                font-size: 32px;
-            }
-
-            .hero-content p {
-                font-size: 16px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .hero-stats {
-                flex-direction: column;
-                gap: 24px;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .trust-container {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .section-header h2 {
-                font-size: 32px;
-            }
-
-            .newsletter-container h2 {
-                font-size: 28px;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .newsletter-input,
-            .newsletter-btn {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-logo {
-                font-size: 18px;
-            }
-
-            .hero-content h1 {
-                font-size: 24px;
-                margin-bottom: 16px;
-            }
-
-            .hero-content p {
-                font-size: 14px;
-                margin-bottom: 20px;
-            }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .product-image {
-                height: 240px;
-            }
-
-            .section-header h2 {
-                font-size: 24px;
-            }
-
-            .section-header {
-                margin-bottom: 40px;
-            }
-
-            .products-section {
-                padding: 60px 16px;
-            }
-
-            .benefits-section,
-            .testimonials-section,
-            .faq-section {
-                padding: 60px 16px;
-            }
-
-            .newsletter-section {
-                padding: 60px 16px;
-            }
-
-            .footer {
-                padding: 40px 16px 20px;
-            }
-        }
-
-        /* ==================== UTILITY & ANIMATIONS ==================== */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--blue);
-            color: var(--white);
-            padding: 8px 16px;
-            border-radius: 0 0 8px 0;
-            z-index: 10001;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease;
-        }
-    </style>
-</head>
-<body>
-```html
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <!-- NAVIGATION -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">CloudRest</a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#products">Products</a></li>
-                <li><a href="#benefits">Benefits</a></li>
-                <li><a href="#testimonials">Reviews</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <button class="nav-cta" aria-label="Shop now">Shop Now</button>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section class="hero" id="main-content">
-        <div class="hero-content">
-            <h1>Sleep Like Never Before</h1>
-            <p>Experience the ultimate comfort with CloudRest premium pillows. Engineered for perfect alignment, superior cooling, and all-night support. Wake up refreshed every morning.</p>
-            <div class="hero-buttons">
-                <button class="btn-primary" aria-label="Shop our collection">Shop Collection</button>
-                <button class="btn-secondary" aria-label="Learn more about CloudRest">Learn More</button>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-number">50K+</div>
-                    <div class="stat-label">Happy Customers</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">4.9/5</div>
-                    <div class="stat-label">Average Rating</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Money Back Guarantee</div>
-                </div>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1584622181563-430f63602d4b?w=800&q=80" alt="CloudRest premium pillow on bed">
-        </div>
-    </section>
-
-    <!-- TRUST BAR -->
-    <section class="trust-bar">
-        <div class="trust-container">
-            <div class="trust-item">
-                <h3>Free Shipping</h3>
-                <p>On all orders over $50</p>
-            </div>
-            <div class="trust-item">
-                <h3>100 Night Trial</h3>
-                <p>Sleep risk-free with our guarantee</p>
-            </div>
-            <div class="trust-item">
-                <h3>Lifetime Support</h3>
-                <p>Expert assistance whenever you need</p>
-            </div>
-            <div class="trust-item">
-                <h3>Made in USA</h3>
-                <p>Premium materials, local craftsmanship</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- PRODUCTS SECTION -->
-    <section class="products-section" id="products">
-        <div class="section-header">
-            <h2>Our Collections</h2>
-            <p>Choose the perfect pillow for your sleep style and preferences</p>
-        </div>
-        <div class="product-grid">
-            <!-- Product 1 -->
-            <article class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1563236176-d2ec4b72b65f?w=400&q=80" alt="CloudRest Premium Memory Foam Pillow">
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="product-info">
-                    <div class="product-category">Premium</div>
-                    <h3 class="product-title">Premium Memory Foam</h3>
-                    <p class="product-description">Gel-infused memory foam with cooling technology for temperature regulation</p>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                        </div>
-                        <span class="rating-count">(1,284)</span>
-                    </div>
-                    <div class="product-footer">
-                        <div>
-                            <span class="product-price">$129</span>
-                            <span class="product-price-original">$199</span>
-                        </div>
-                        <button class="product-btn" aria-label="Add Premium Memory Foam to cart">Add to Cart</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Product 2 -->
-            <article class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&q=80" alt="CloudRest Bamboo Cooling Pillow">
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="product-info">
-                    <div class="product-category">Best Seller</div>
-                    <h3 class="product-title">Bamboo Cooling Pillow</h3>
-                    <p class="product-description">Natural bamboo cover with ventilated channels for superior airflow</p>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                        </div>
-                        <span class="rating-count">(2,156)</span>
-                    </div>
-                    <div class="product-footer">
-                        <div>
-                            <span class="product-price">$109</span>
-                            <span class="product-price-original">$159</span>
-                        </div>
-                        <button class="product-btn" aria-label="Add Bamboo Cooling Pillow to cart">Add to Cart</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Product 3 -->
-            <article class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1615873114437-c47abee3ceb2?w=400&q=80" alt="CloudRest Orthopedic Support Pillow">
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="product-info">
-                    <div class="product-category">Medical Grade</div>
-                    <h3 class="product-title">Orthopedic Support Pillow</h3>
-                    <p class="product-description">Contoured design for cervical spine alignment and neck pain relief</p>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 
-```html
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                        </div>
-                        <span class="rating-count">(892)</span>
-                    </div>
-                    <div class="product-footer">
-                        <div>
-                            <span class="product-price">$149</span>
-                            <span class="product-price-original">$229</span>
-                        </div>
-                        <button class="product-btn" aria-label="Add Orthopedic Support Pillow to cart">Add to Cart</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Product 4 -->
-            <article class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=400&q=80" alt="CloudRest Luxury Down Alternative Pillow">
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="product-info">
-                    <div class="product-category">Hypoallergenic</div>
-                    <h3 class="product-title">Luxury Down Alternative</h3>
-                    <p class="product-description">Soft, plush alternative with hypoallergenic fill for sensitive sleepers</p>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FCD34D"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                        </div>
-                        <span class="rating-count">(1,421)</span>
-                    </div>
-                    <div class="product-footer">
-                        <div>
-                            <span class="product-price">$99</span>
-                            <span class="product-price-original">$169</span>
-                        </div>
-                        <button class="product-btn" aria-label="Add Luxury Down Alternative to cart">Add to Cart</button>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <!-- BENEFITS SECTION -->
-    <section class="benefits-section" id="benefits">
-        <div class="benefits-container">
-            <div class="section-header">
-                <h2>Why Choose CloudRest?</h2>
-                <p>We're committed to delivering the best sleep experience</p>
-            </div>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-                        </svg>
-                    </div>
-                    <h3>Premium Materials</h3>
-                    <p>Made with certified organic materials and eco-friendly manufacturing processes to ensure safety and sustainability.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <h3>Temperature Control</h3>
-                    <p>Advanced cooling technology keeps you at the optimal temperature throughout the night for uninterrupted sleep.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Durability Tested</h3>
-                    <p>Each pillow undergoes rigorous testing to ensure it maintains comfort and support for years to come.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS SECTION -->
-    <section class="testimonials-section" id="testimonials">
-        <div class="section-header">
-            <h2>Loved by Thousands</h2>
-            <p>See what our customers have to say about CloudRest pillows</p>
-        </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-name">Sarah Johnson</div>
-                        <div class="testimonial-role">Verified Buyer</div>
-                    </div>
-                </div>
-                <div class="testimonial-rating">
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                </div>
-                <p class="testimonial-text">"I've never slept better in my life! The CloudRest pillow is incredibly comfortable and keeps me cool all night. It's been a game-changer for my sleep quality."</p>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-name">Michael Chen</div>
-                        <div class="testimonial-role">Verified Buyer</div>
-                    </div>
-                </div>
-                <div class="testimonial-rating">
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                </div>
-                <p class="testimonial-text">"As someone with chronic neck pain, the orthopedic pillow has been a lifesaver. I wake up without pain for the first time in years!"</p>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-name">Emily Rodriguez</div>
-                        <div class="testimonial-role">Verified Buyer</div>
-                    </div>
-                </div>
-                <div class="testimonial-rating">
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.
-```html
-<!-- filename: index.html (continued) -->
-98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                    <svg class="testimonial-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 10.26 23.77 11.36 17.88 17.15 19.54 25.98 12 21.77 4.46 25.98 6.12 17.15 0.23 11.36 8.91 10.26 12 2"/></svg>
-                </div>
-                <p class="testimonial-text">"The quality is exceptional and customer service is phenomenal. Worth every penny. I've already recommended it to all my friends!"</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ SECTION -->
-    <section class="faq-section" id="faq">
-        <div class="faq-container">
-            <div class="section-header">
-                <h2>Frequently Asked Questions</h2>
-                <p>Find answers to common questions about CloudRest pillows</p>
-            </div>
-            <div class="faq-item">
-                <button class="faq-button" aria-expanded="false" aria-controls="faq-1">
-                    <span>What is the return policy?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <div class="faq-content" id="faq-1">
-                    <div class="faq-text">
-                        We offer a 100-night sleep trial with no questions asked. If you're not completely satisfied, simply return your pillow for a full refund. We also provide free return shipping on all returns within the trial period.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-button" aria-expanded="false" aria-controls="faq-2">
-                    <span>How long do CloudRest pillows last?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <div class="faq-content" id="faq-2">
-                    <div class="faq-text">
-                        CloudRest pillows are engineered for durability and typically last 3-5 years with proper care. Our premium materials resist flattening and maintain their shape through hundreds of nights. We recommend replacing your pillow every 1-2 years for optimal hygiene and support.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-button" aria-expanded="false" aria-controls="faq-3">
-                    <span>Are CloudRest pillows hypoallergenic?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <div class="faq-content" id="faq-3">
-                    <div class="faq-text">
-                        Yes! Our Down Alternative and several other collections are hypoallergenic and made with materials resistant to dust mites, allergens, and bacteria. All our pillows are CertiPUR-US certified and free from harmful chemicals.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-button" aria-expanded="false" aria-controls="faq-4">
-                    <span>How should I care for my pillow?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <div class="faq-content" id="faq-4">
-                    <div class="faq-text">
-                        We recommend washing your pillowcase weekly in warm water. For the pillow itself, use a gentle vacuum to remove dust, or spot clean with mild soap and water. Air dry completely before use. Check your specific product care tag for detailed instructions based on your pillow type.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-button" aria-expanded="false" aria-controls="faq-5">
-                    <span>Which pillow should I choose?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <div class="faq-content" id="faq-5">
-                    <div class="faq-text">
-                        Choice depends on your sleep style and needs. Back sleepers benefit from moderate support; side sleepers need firmer, thicker pillows; stomach sleepers prefer thin pillows. Our Memory Foam is versatile, Bamboo Cooling is great for hot sleepers, Orthopedic is ideal for neck pain, and Down Alternative works for allergies. Our 100-night trial lets you test which works best for you.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEWSLETTER SECTION -->
-    <section class="newsletter-section" id="contact">
-        <div class="newsletter-container">
-            <h2>Join 50,000+ Happy Sleepers</h2>
-            <p>Subscribe to get exclusive deals, sleep tips, and product launches delivered to your inbox</p>
-            <form class="newsletter-form" novalidate>
-                <input 
-                    type="email" 
-                    class="newsletter-input" 
-                    placeholder="Enter your email" 
-                    required 
-                    aria-label="Email address for newsletter"
-                >
-                <button type="submit" class="newsletter-btn" aria-label="Subscribe to newsletter">Subscribe</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h3>About</h3>
-                    <ul>
-                        <li><a href="#about">About CloudRest</a></li>
-                        <li><a href="#careers">Careers</a></li>
-                        <li><a href="#press">Press</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Products</h3>
-                    <ul>
-                        <li><a href="#memory-foam">Memory Foam</a></li>
-                        <li><a href="#bamboo">Bamboo Cooling</a></li>
-                        <li><a href="#orthopedic">Orthopedic</a></li>
-                        <li><a href="#down-alt">Down Alternative</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#contact-us">Contact Us</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#shipping">Shipping Info</a></li>
-                        <li><a href="#returns">Returns</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Legal</h3>
-                    <ul>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                        <li><a href="#warranty">Warranty</a></li>
-                        <li><a href="#accessibility">Accessibility</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-copy">&copy; 2024 CloudRest Pillows. All rights reserved.</p>
-                <div class="footer-social">
-                    <a href="#facebook" class="social-link" aria-label="Visit CloudRest on Facebook">f</a>
-                    <a href="#twitter" class="social-link" aria-label="Visit CloudRest on Twitter">ð</a>
-                    <a href="#instagram" class="social-link" aria-label="Visit CloudRest on Instagram">ð·</a>
-                    <a href="#linkedin" class="social-link" aria-label="Visit CloudRest on LinkedIn">in</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JAVASCRIPT -->
-    <script>
-        // ==================== STICKY NAVBAR ==================== 
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 32) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // ==================== MOBILE MENU TOGGLE ==================== 
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-
-        hamburger.addEventListener('click', () => {
-            const isActive = navMenu.classList.toggle('active');
-            hamburger.setAttribute('aria-expanded', isActive);
-        });
-
-        // Close menu when a link is clicked
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
-            });
-        });
-
-        // ==================== FAQ ACCORDION ==================== 
-        const faqButtons = document.querySelectorAll('.faq-button');
-
-        faqButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const faqItem = button.parentElement;
-                const isOpen = faqItem.classList.contains('open');
-
-                // Close all other items
-                document.querySelectorAll('.faq-item').forEach(item => {
-                    item.classList.remove('open');
-                    item.querySelector('.faq-button').setAttribute('aria-expanded', 'false');
-                });
-
-                // Toggle current item
-                if (!isOpen) {
-                    faqItem.classList.add('open');
-                    button.setAttribute('aria-expanded', 'true');
-                }
-            });
-
-            // Keyboard navigation
-            button.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    const allButtons = Array.from(faqButtons);
-                    const currentIndex = allButtons.indexOf(button);
-                    const nextIndex = e.key === 'ArrowDown' 
-                        ? (currentIndex + 1) % allButtons.length 
-                        : (currentIndex - 1 + allButtons.length) % allButtons.length;
-                    allButtons[nextIndex].focus();
-                }
-            });
-        });
-
-        // ==================== NEWSLETTER FORM ==================== 
-        const newsletterForm = document.querySelector('.newsletter-form');
-        const newsletterInput = document.querySelector('.newsletter-input');
-
-        newsletterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const email = newsletterInput.value.trim();
-            if (email && isValidEmail(email)) {
-                // Simulate API call
-                const originalText = e.target.querySelector('.newsletter-btn').textContent;
-                e.target.querySelector('.newsletter-btn').textContent = 'Subscribed! â';
-                e.target.querySelector('.newsletter-btn').disabled = true;
-                
-                setTimeout(() => {
-                    newsletterForm.reset();
-                    e.target.querySelector('.newsletter-btn').textContent = originalText;
-                    e.target.querySelector('.newsletter-btn').disabled = false;
-                }, 3000);
-            } else {
-                newsletterInput.setAttribute('aria-invalid', 'true');
-                newsletterInput.setAttribute('aria-describedby', 'email-error');
-            }
-        });
-
-        newsletterInput.addEventListener('input', () => {
-            newsletterInput.removeAttribute('aria-invalid');
-        });
-
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        // ==================== PRODUCT WISHLIST ==================== 
-        const wishlistButtons = document.querySelectorAll('.product-wishlist');
-
-        wishlistButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const svg = button.querySelector('svg');
-                const isLiked = button.classList.toggle('liked');
-                
-                if (isLiked) {
-                    svg.style.fill = 'currentColor';
-                    button.setAttribute('aria-label', 'Remove from wishlist');
-                } else {
-                    svg.style.fill = 'none';
-                    button.setAttribute('aria-label', 'Add to wishlist');
-                }
-            });
-        });
-
-        // ==================== PRODUCT BUTTONS ==================== 
-        const productButtons = document.querySelectorAll('.product-btn');
-
-        productButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const
-```html
- originalText = button.textContent;
-                button.textContent = 'Added to Cart! â';
-                button.disabled = true;
-                
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.disabled = false;
-                }, 2000);
-            });
-        });
-
-        // ==================== SMOOTH SCROLL ==================== 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && document.querySelector(href)) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // ==================== INTERSECTION OBSERVER FOR ANIMATIONS ==================== 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.product-card, .benefit-card, .testimonial-card, .faq-item').forEach(el => {
-            observer.observe(el);
-        });
-
-        // ==================== KEYBOARD NAVIGATION SUPPORT ==================== 
-        // Trap focus in mobile menu when open
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
-                hamburger.focus();
-            }
-        });
-    </script>
-</body>
-</html>
+        .feature-title {
+            font-size: 18px;
+            font-
