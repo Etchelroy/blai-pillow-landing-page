@@ -1,0 +1,284 @@
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="faq-content" id="faq-6">
+                    <div class="faq-text">
+                        Absolutely! CloudRest pillows make excellent gifts for anyone who values quality sleep. We offer complimentary gift wrapping and personalized message cards. Perfect for housewarming, wedding, or thank-you gifts.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER SECTION -->
+    <section class="newsletter-section" id="contact">
+        <div class="newsletter-container">
+            <h2>Join 50,000+ Happy Sleepers</h2>
+            <p>Subscribe to get exclusive deals, sleep tips, and product launches delivered to your inbox</p>
+            <form class="newsletter-form" novalidate>
+                <input 
+                    type="email" 
+                    class="newsletter-input" 
+                    placeholder="Enter your email" 
+                    required 
+                    aria-label="Email address for newsletter"
+                >
+                <button type="submit" class="newsletter-btn" aria-label="Subscribe to newsletter">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#about">About CloudRest</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#press">Press</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Products</h3>
+                    <ul>
+                        <li><a href="#memory-foam">Memory Foam</a></li>
+                        <li><a href="#bamboo">Bamboo Cooling</a></li>
+                        <li><a href="#orthopedic">Orthopedic</a></li>
+                        <li><a href="#down-alt">Down Alternative</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#contact-us">Contact Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                        <li><a href="#returns">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#warranty">Warranty</a></li>
+                        <li><a href="#accessibility">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2024 CloudRest Pillows. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#facebook" class="social-link" aria-label="Visit CloudRest on Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="#twitter" class="social-link" aria-label="Visit CloudRest on Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                            <path d="M23.953 4.57a10 10 0 002.856-3.51 10.02 10.02 0 01-2.856 1.1 5 5 0 00-8.661-4.905A5 5 0 003.18 17.153a14.05 14.05 0 01-10.201-5.197 5 5 0 001.548 6.659 5 5 0 01-2.266-.616v.06a5 5 0 004.01 4.904 5 5 0 01-2.256.086 5 5 0 004.666 3.472 10.025 10.025 0 01-6.2 2.138 14.06 14.06 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A10.025 10.025 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="#instagram" class="social-link" aria-label="Visit CloudRest on Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="currentColor"/>
+                            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#linkedin" class="social-link" aria-label="Visit CloudRest on LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.004 1.42-.103.249-.129.597-.129.946v5.439h-3.554s.047-8.827 0-9.744h3.554v1.381c.431-.666 1.204-1.614 2.928-1.614 2.136 0 3.745 1.393 3.745 4.385v5.592zM5.337 9.433c-1.144 0-1.915-.758-1.915-1.706 0-.955.77-1.71 1.954-1.71 1.185 0 1.915.755 1.94 1.71 0 .948-.755 1.706-1.979 1.706zm1.946 11.019H3.39V9.708h3.893v10.744zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ==================== STICKY NAVBAR ==================== 
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 32) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ==================== MOBILE MENU TOGGLE ==================== 
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            const isActive = navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive);
+        });
+
+        // Close menu when a link is clicked
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // ==================== FAQ ACCORDION ==================== 
+        const faqButtons = document.querySelectorAll('.faq-button');
+
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const isOpen = faqItem.classList.contains('open');
+
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('open');
+                    item.querySelector('.faq-button').setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current item
+                if (!isOpen) {
+                    faqItem.classList.add('open');
+                    button.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            // Keyboard navigation
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const allButtons = Array.from(faqButtons);
+                    const currentIndex = allButtons.indexOf(button);
+                    const nextIndex = e.key === 'ArrowDown' 
+                        ? (currentIndex + 1) % allButtons.length 
+                        : (currentIndex - 1 + allButtons.length) % allButtons.length;
+                    allButtons[nextIndex].focus();
+                }
+            });
+        });
+
+        // ==================== NEWSLETTER FORM ==================== 
+        const newsletterForm = document.querySelector('.newsletter-form');
+        const newsletterInput = document.querySelector('.newsletter-input');
+
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = newsletterInput.value.trim();
+            if (email && isValidEmail(email)) {
+                // Simulate API call with optimistic UI update
+                const btn = e.target.querySelector('.newsletter-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Subscribed! â';
+                btn.disabled = true;
+                
+                // In production, make actual API call here
+                // fetch('/api/newsletter/subscribe', { method: 'POST', body: JSON.stringify({ email }) })
+                
+                setTimeout(() => {
+                    newsletterForm.reset();
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                    newsletterInput.removeAttribute('aria-invalid');
+                }, 3000);
+            } else {
+                newsletterInput.setAttribute('aria-invalid', 'true');
+                newsletterInput.setAttribute('aria-describedby', 'email-error');
+            }
+        });
+
+        newsletterInput.addEventListener('input', () => {
+            newsletterInput.removeAttribute('aria-invalid');
+        });
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // ==================== PRODUCT WISHLIST ==================== 
+        const wishlistButtons = document.querySelectorAll('.product-wishlist');
+
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const svg = button.querySelector('svg');
+                const isLiked = button.classList.toggle('liked');
+                
+                if (isLiked) {
+                    svg.setAttribute('style', 'fill: currentColor;');
+                    button.setAttribute('aria-label', 'Remove from wishlist');
+                    button.setAttribute('data-liked', 'true');
+                } else {
+                    svg.removeAttribute('style');
+                    button.setAttribute('aria-label', 'Add to wishlist');
+                    button.removeAttribute('data-liked');
+                }
+                
+                // Persist to localStorage in production
+                const productId = button.closest('.product-card').getAttribute('data-product-id') || 'product-' + Math.random();
+                const wishlist = JSON.parse(localStorage.getItem('cloudrest-wishlist') || '[]');
+                
+                if (isLiked) {
+                    if (!wishlist.includes(productId)) wishlist.push(productId);
+                } else {
+                    wishlist.splice(wishlist.indexOf(productId), 1);
+                }
+                
+                localStorage.setItem('cloudrest-wishlist', JSON.stringify(wishlist));
+            });
+        });
+
+        // Restore wishlist state on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const wishlist = JSON.parse(localStorage.getItem('cloudrest-wishlist') || '[]');
+            wishlistButtons.forEach(button => {
+                const productId = button.closest('.product-card').getAttribute('data-product-id') || 'product-' + Math.random();
+                if (wishlist.includes(productId)) {
+                    button.classList.add('liked');
+                    button.querySelector('svg').setAttribute('style', 'fill: currentColor;');
+                    button.setAttribute('data-liked', 'true');
+                    button.setAttribute('aria-label', 'Remove from wishlist');
+                }
+            });
+        });
+
+        // ==================== PRODUCT ADD TO CART ==================== 
+        const productButtons = document.querySelectorAll('.product-btn');
+
+        productButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const originalText = button.textContent;
+                button.textContent = 'Added to Cart! â';
+                button.disabled = true;
+                
+                // In production, add to cart via API
+                // const productName = button.closest('.product-info').querySelector('.product-title').textContent;
+                // fetch('/api/cart/add', { method: 'POST', body: JSON.stringify({ product: productName, quantity: 1 }) })
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }, 2000);
+            });
+
+            // Keyboard support
+            button.addEventListener('keydown',
