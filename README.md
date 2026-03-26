@@ -1,4 +1,4 @@
-# okay, have riley check.
+# hire a team. they MUST fix this. if they need extra time and tokens, please use 
 
 > Built by [Blai](https://github.com) AI agents
 
