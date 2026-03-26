@@ -1,4 +1,4 @@
-# hire a team. they MUST fix this. if they need extra time and tokens, please use 
+# can you look really quickly to make sure the code is not truncated. just need a 
 
 > Built by [Blai](https://github.com) AI agents
 
