@@ -1,0 +1,370 @@
+        // ==================== SERVICE WORKER REGISTRATION (Optional PWA Support) ==================== 
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(err => {
+                console.log('Service Worker registration failed:', err);
+            });
+        }
+
+        // ==================== LAZY LOAD INTERSECTION OBSERVER FOR IMAGES ==================== 
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        img.classList.add('loaded');
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px'
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+
+        // ==================== SCROLL TO TOP BUTTON ==================== 
+        const scrollTopBtn = document.createElement('button');
+        scrollTopBtn.setAttribute('aria-label', 'Scroll to top');
+        scrollTopBtn.setAttribute('class', 'scroll-top-btn');
+        scrollTopBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+        `;
+        document.body.appendChild(scrollTopBtn);
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // ==================== PRODUCT FILTER & SEARCH ==================== 
+        function filterProducts(category) {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                const cardCategory = card.querySelector('.product-category').textContent.trim();
+                if (category === 'all' || cardCategory.toLowerCase() === category.toLowerCase()) {
+                    card.style.display = 'block';
+                    setTimeout(() => card.classList.add('fade-in'), 10);
+                } else {
+                    card.style.display = 'none';
+                    card.classList.remove('fade-in');
+                }
+            });
+        }
+
+        // ==================== TESTIMONIAL CAROUSEL (Auto-rotate) ==================== 
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        let currentTestimonial = 0;
+
+        function rotateTestimonials() {
+            testimonialCards.forEach((card, index) => {
+                if (index === currentTestimonial) {
+                    card.style.display = 'block';
+                    card.classList.add('fade-in');
+                } else {
+                    card.classList.remove('fade-in');
+                }
+            });
+
+            currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+        }
+
+        // Rotate every 8 seconds (optional: comment out for static display)
+        // setInterval(rotateTestimonials, 8000);
+
+        // ==================== DYNAMIC PRICING CALCULATOR ==================== 
+        function calculateBundleDiscount(quantity) {
+            const basePrice = 129;
+            if (quantity >= 3) return basePrice * 0.85; // 15% off for 3+
+            if (quantity === 2) return basePrice * 0.90; // 10% off for 2
+            return basePrice;
+        }
+
+        // ==================== INVENTORY TRACKING ==================== 
+        const inventory = {
+            'Premium Memory Foam': 12,
+            'Bamboo Cooling Pillow': 8,
+            'Orthopedic Support Pillow': 5,
+            'Luxury Down Alternative': 15
+        };
+
+        function checkInventory(productName) {
+            return inventory[productName] || 0;
+        }
+
+        function updateInventoryDisplay() {
+            document.querySelectorAll('.product-btn').forEach(btn => {
+                const productName = btn.closest('.product-info').querySelector('.product-title').textContent;
+                const stock = checkInventory(productName);
+                
+                if (stock === 0) {
+                    btn.textContent = 'Out of Stock';
+                    btn.disabled = true;
+                    btn.style.backgroundColor = '#9CA3AF';
+                } else if (stock < 5) {
+                    const badge = document.createElement('span');
+                    badge.textContent = `Only ${stock} left!`;
+                    badge.style.fontSize = '11px';
+                    badge.style.marginRight = '4px';
+                    badge.style.color = '#DC2626';
+                    badge.style.fontWeight = '700';
+                    if (!btn.querySelector('span')) {
+                        btn.prepend(badge);
+                    }
+                }
+            });
+        }
+
+        updateInventoryDisplay();
+
+        // ==================== PRODUCT COMPARISON FEATURE ==================== 
+        const comparisonList = [];
+
+        function toggleProductComparison(productName) {
+            if (comparisonList.includes(productName)) {
+                comparisonList.splice(comparisonList.indexOf(productName), 1);
+            } else {
+                if (comparisonList.length < 4) {
+                    comparisonList.push(productName);
+                } else {
+                    alert('You can compare up to 4 products at once.');
+                    return;
+                }
+            }
+
+            console.log('Comparison list:', comparisonList);
+            // In production: show comparison modal or page
+        }
+
+        // ==================== PRICE RANGE FILTER ==================== 
+        function filterByPrice(minPrice, maxPrice) {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                const priceText = card.querySelector('.product-price').textContent.replace('$', '');
+                const price = parseFloat(priceText);
+                
+                if (price >= minPrice && price <= maxPrice) {
+                    card.style.display = 'block';
+                    card.classList.add('fade-in');
+                } else {
+                    card.style.display = 'none';
+                    card.classList.remove('fade-in');
+                }
+            });
+        }
+
+        // ==================== RATING FILTER ==================== 
+        function filterByRating(minRating) {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                const stars = card.querySelector('.product-rating .stars').querySelectorAll('.star').length;
+                
+                if (stars >= minRating) {
+                    card.style.display = 'block';
+                    card.classList.add('fade-in');
+                } else {
+                    card.style.display = 'none';
+                    card.classList.remove('fade-in');
+                }
+            });
+        }
+
+        // ==================== PRODUCT QUICK VIEW MODAL ==================== 
+        function createQuickViewModal(productCard) {
+            const modal = document.createElement('div');
+            modal.setAttribute('class', 'modal quick-view-modal');
+            modal.setAttribute('role', 'dialog');
+            modal.setAttribute('aria-modal', 'true');
+            modal.setAttribute('aria-labelledby', 'modal-title');
+
+            const productImage = productCard.querySelector('.product-image img').src;
+            const productTitle = productCard.querySelector('.product-title').textContent;
+            const productDescription = productCard.querySelector('.product-description').textContent;
+            const productPrice = productCard.querySelector('.product-price').textContent;
+            const productRating = productCard.querySelector('.rating-count').textContent;
+
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <button class="modal-close" aria-label="Close quick view">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="modal-body">
+                        <div class="modal-image">
+                            <img src="${productImage}" alt="${productTitle}">
+                        </div>
+                        <div class="modal-info">
+                            <h2 id="modal-title">${productTitle}</h2>
+                            <p class="modal-price">${productPrice}</p>
+                            <p class="modal-rating">${productRating} â­</p>
+                            <p class="modal-description">${productDescription}</p>
+                            <div class="modal-actions">
+                                <select class="modal-quantity" aria-label="Select quantity">
+                                    <option value="1">Qty: 1</option>
+                                    <option value="2">Qty: 2</option>
+                                    <option value="3">Qty: 3</option>
+                                    <option value="4">Qty: 4</option>
+                                    <option value="5">Qty: 5</option>
+                                </select>
+                                <button class="btn-primary modal-add-to-cart" aria-label="Add to cart from quick view">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+            modal.style.display = 'flex';
+
+            modal.querySelector('.modal-close').addEventListener('click', () => {
+                modal.remove();
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            modal.querySelector('.modal-add-to-cart').addEventListener('click', () => {
+                const quantity = parseInt(modal.querySelector('.modal-quantity').value);
+                addToCart(productTitle, productPrice, quantity);
+                modal.remove();
+                alert(`Added ${quantity} ${productTitle}(s) to cart!`);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                }
+            });
+        }
+
+        // Add quick view functionality to product cards
+        document.querySelectorAll('.product-card').forEach(card => {
+            const quickViewBtn = document.createElement('button');
+            quickViewBtn.textContent = 'Quick View';
+            quickViewBtn.setAttribute('class', 'product-quick-view');
+            quickViewBtn.setAttribute('aria-label', 'Quick view product');
+            
+            card.querySelector('.product-image').appendChild(quickViewBtn);
+            
+            quickViewBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                createQuickViewModal(card);
+            });
+        });
+
+        // ==================== USER REVIEWS SUBMISSION ==================== 
+        function createReviewForm() {
+            const reviewForm = document.createElement('div');
+            reviewForm.setAttribute('class', 'review-form-container');
+            reviewForm.innerHTML = `
+                <div class="review-form">
+                    <h3>Leave a Review</h3>
+                    <form id="product-review-form" novalidate>
+                        <div class="form-group">
+                            <label for="reviewer-name">Your Name *</label>
+                            <input type="text" id="reviewer-name" name="name" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewer-email">Your Email *</label>
+                            <input type="email" id="reviewer-email" name="email" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewer-rating">Rating *</label>
+                            <select id="reviewer-rating" name="rating" required>
+                                <option value="">Select rating</option>
+                                <option value="5">â­â­â­â­â­ Excellent</option>
+                                <option value="4">â­â­â­â­ Very Good</option>
+                                <option value="3">â­â­â­ Good</option>
+                                <option value="2">â­â­ Fair</option>
+                                <option value="1">â­ Poor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewer-comment">Your Review *</label>
+                            <textarea id="reviewer-comment" name="comment" rows="5" required placeholder="Share your experience with CloudRest pillows..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Submit Review</button>
+                    </form>
+                </div>
+            `;
+
+            return reviewForm;
+        }
+
+        // ==================== DYNAMIC DISCOUNT BANNER ==================== 
+        function createDiscountBanner(discountPercent, expiresIn) {
+            const banner = document.createElement('div');
+            banner.setAttribute('class', 'discount-banner');
+            banner.setAttribute('role', 'alert');
+            banner.innerHTML = `
+                <div class="banner-content">
+                    <span class="banner-icon">ð</span>
+                    <span class="banner-text">Get <strong>${discountPercent}% OFF</strong> on your first order! Use code: <strong>SLEEP${discountPercent}</strong></span>
+                    <span class="banner-close">Ã</span>
+                </div>
+                <div class="banner-timer" aria-label="Offer expires in ${expiresIn}">Expires in: <span id="discount-timer">${expiresIn}</span></div>
+            `;
+
+            document.body.insertBefore(banner, document.body.firstChild);
+
+            banner.querySelector('.banner-close').addEventListener('click', () => {
+                banner.remove();
+                localStorage.setItem('discount-banner-dismissed', 'true');
+            });
+
+            // Countdown timer
+            let timeLeft = parseInt(expiresIn);
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                const hours = Math.floor(timeLeft / 60);
+                const minutes = timeLeft % 60;
+                document.getElementById('discount-timer').textContent = `${hours}h ${minutes}m`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    banner.remove();
+                }
+            }, 60000); // Update every minute
+        }
+
+        // Show discount banner if not dismissed
+        if (!localStorage.getItem('discount-banner-dismissed')) {
+            createDiscountBanner(15, '24');
+        }
+
+        // ==================== LIVE CHAT WIDGET ==================== 
+        function createChatWidget() {
+            const chatContainer = document.createElement('div');
+            chatContainer.setAttribute('class', 'chat-widget');
+            chatContainer.innerHTML = `
+                <div class="chat-header">
+                    <h4>CloudRest Support</h4>
+                    <button class="chat-minimize" aria-label="Minimize chat">â</button>
+                </div>
+                <div class="chat-messages">
+                    <div class="chat-message bot">
+                        <p>Hello! How can we help you today? ð</p>
+                    </div>
+                </div>
+                <div class="chat
